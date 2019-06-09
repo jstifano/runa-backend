@@ -1,7 +1,7 @@
 let router = require('express').Router();
-let User = require('../models/user');
 let sequelize = require('../sequelize');
 let LoginService = require('../services/LoginService');
+let UserService = require('../services/UserService');
 
 /*********************************************
 * Controlador que maneja el login de usuario *
@@ -24,6 +24,14 @@ router.post('/login', function(req, res){
         })
     }) */
     
+})
+/*******************************************************************
+* Controlador que devuelve todos los empleados con rol de Empleado *
+********************************************************************/
+router.get('/users', function(req, res){
+    UserService.getEmployees(function(response){
+        res.status(response.code).json(response);    
+    })
 })
 
 module.exports = router;
