@@ -21,6 +21,8 @@ CREATE TABLE public."user"
     role character varying(30) COLLATE pg_catalog."default" NOT NULL,
     "createdAt" timestamp(6) with time zone,
     "updatedAt" timestamp(6) with time zone,
+    "firstName" character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    "lastName" character varying(30) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -42,6 +44,7 @@ CREATE TABLE public.entry
     "departureDate" timestamp(6) without time zone NOT NULL,
     "createdAt" timestamp(6) without time zone NOT NULL,
     "updatedAt" timestamp(6) without time zone,
+    id_user integer NOT NULL,
     CONSTRAINT entry_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -53,5 +56,5 @@ ALTER TABLE public.entry
     OWNER to postgres;
 /****** Creación de la tabla de Entradas y Salidas ********/
 
-INSERT INTO user(id, email, password, role, createdAt, updatedAt) VALUES(DEFAULT, 'admin@test.com', 'admin123', 'admin', null, null);
-INSERT INTO user(id, username, password, role, createdAt, updatedAt) VALUES(DEFAULT, 'empleado@test.com', 'empleado123', 'empleado', null, null);
+INSERT INTO public."user" (id, email, password, role, created_at, updated_at, first_name, last_name) VALUES(DEFAULT, 'admin@test.com', 'admin123', 'admin', null, null, 'Admin', 'Uno');
+INSERT INTO public."user" (id, email, password, role, created_at, updated_at, first_name, last_name) VALUES(DEFAULT, 'empleado@test.com', 'empleado123', 'empleado', null, null, 'Empleado', 'Uno');
