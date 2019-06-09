@@ -6,10 +6,10 @@ let seq = require('../sequelize');
 let User = require('./user');
 
 const Entry = seq.define('entry', {
-    arrivalDate: {
+    arrival_date: {
         type: DataTypes.DATE
     },
-    departureDate: {
+    departure_date: {
         type: DataTypes.DATE
     }
 }, {

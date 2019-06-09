@@ -57,7 +57,7 @@ class EntryService {
                 callback({code: 200, entries: response});      
             }
             else {
-                callback({code: 204, entries: []});    
+                callback({code: 200, entries: []});    
             }
         })
     }

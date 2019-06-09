@@ -6,22 +6,20 @@ let sequelize = require('../sequelize');
 let Entry = require('./entry');
 
 const User = sequelize.define('user', {
-    firstName: {
+    first_name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notNull: true,
-            notEmpty: true,
-            isEmail: true
+            notEmpty: true
         }
     },
-    lastName: {
+    last_name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notNull: true,
-            notEmpty: true,
-            isEmail: true
+            notEmpty: true
         }
     },
     email: {
