@@ -10,7 +10,7 @@ class LoginService {
     *********************************************************/
     static authenticate(req, res, callback){
         // El usuario no envió algunos de los parámetros requeridos
-        if(!req.email || !req.password || !req.role || !req.createdAt){
+        if(!req.email || !req.password || !req.role){
             callback({code: 400, message: 'Parámetros inválidos'});
         }
         // Verifico si el rol que envía el usuario es válido (Admin o Empleado)
