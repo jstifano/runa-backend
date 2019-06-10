@@ -24,7 +24,7 @@ app.use(config.apiEndpoint, userRoutes);
     console.log("Conexión con la base de datos establecida.");
 }); */
 
-app.listen(3000, function(){
-    console.log("Server running on port ::: 3000");
+app.listen(5000, function(){
+    console.log("Server running on port ::: 5000");
 })
 

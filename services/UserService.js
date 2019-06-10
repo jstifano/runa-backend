@@ -2,6 +2,9 @@
 * Servicio para manejar la gestion de usuarios *
 ************************************************/
 let User = require('../models/user');
+let ValidationService = require('./ValidationService');
+let bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class UserService {
 
@@ -34,6 +37,35 @@ class UserService {
         })
     }
 
+    /**********************************************************************
+    * Servicio para crear un usuario con cualquier rol (Admin o Empleado) *
+    ***********************************************************************/
+    static create(req, res, callback){
+        if(!ValidationService.checkValidEmail(req.email) || !ValidationService.checkOnlyLetters(req.first_name) || 
+           !ValidationService.checkOnlyLetters(req.last_name) || req.password.length < 4 || req.password.length > 16 || 
+           !ValidationService.checkRole(req.role)
+        ){
+            callback({code: 400, message: 'Parametros inválidos'});
+        }    
+        // Encripto la contraseña
+        bcrypt.hash(req.password, saltRounds, function(err, hash) {
+            // Guardo la contraseña hasheada en la base de datos
+            let newUser = {
+                first_name: req.first_name,
+                last_name: req.last_name,
+                email: req.email,
+                password: hash,
+                role: req.role
+            }
+            User.create(newUser).then(user => {
+                callback({code: 200, user: user.dataValues});
+            })
+        }); 
+    }
+
+    /************************************************************
+    * Servicio para poder editar un empleado dentro del sistema *
+    *************************************************************/
     static editEmployee(req, res, callback){
         if(!req.id || isNaN(req.id)){
             callback({code: 400, message: 'Parámtros inválidos'});        

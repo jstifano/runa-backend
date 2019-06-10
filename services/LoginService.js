@@ -2,6 +2,7 @@
 * Servicio para manejar la lógica de login y logout *
 *****************************************************/
 let User = require('../models/user');
+let bcrypt = require('bcrypt');
 
 class LoginService {
 
@@ -18,12 +19,14 @@ class LoginService {
         User.findAll({ where: { email: req.email} }).then(users => {
             // Si el usuario existe, compruebo su contraseña
             if(users.length !== 0){
-                if(users[0].dataValues.password === req.password){
-                    callback({ code: 200, authenticate: true, user: {id: users[0].dataValues.id} }) // La contraseña enviada coincide con la del usuario, lo autentico
-                }
-                else {
-                    callback({code: 200, authenticate: false})// No coinciden las contraseñas, no lo autentico.
-                }
+                bcrypt.compare(req.password, users[0].dataValues.password, function(err, matchPassword){
+                    if(matchPassword){
+                        callback({ code: 200, authenticate: true, user: {id: users[0].dataValues.id} }) // La contraseña enviada coincide con la del usuario, lo autentico
+                    }
+                    else {
+                        callback({code: 200, authenticate: false})// No coinciden las contraseñas, no lo autentico.
+                    }
+                })
             }
             else {
                 callback({code: 204, message: 'El usuario no existe.'});

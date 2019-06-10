@@ -55,6 +55,3 @@ TABLESPACE pg_default;
 ALTER TABLE public.entry
     OWNER to postgres;
 /****** Creación de la tabla de Entradas y Salidas ********/
-
-INSERT INTO public."user" (id, email, password, role, createdAt, updatedAt, first_name, last_name) VALUES(DEFAULT, 'admin@test.com', 'admin123', 'admin', null, null, 'Admin', 'Uno');
-INSERT INTO public."user" (id, email, password, role, createdAt, updatedAt, first_name, last_name) VALUES(DEFAULT, 'empleado@test.com', 'empleado123', 'empleado', null, null, 'Empleado', 'Uno');

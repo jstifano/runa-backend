@@ -2,6 +2,7 @@ let router = require('express').Router();
 let sequelize = require('../sequelize');
 let LoginService = require('../services/LoginService');
 let UserService = require('../services/UserService');
+let ValidationService = require('../services/ValidationService');
 
 /*********************************************
 * Controlador que maneja el login de usuario *
@@ -20,12 +21,21 @@ router.get('/users/:id', function(req, res){
     })
 })
 
-router.put('/user/:id', function(req, res){
+/*************************************************************
+* Controlador que permite editar a un empleado en específico *
+**************************************************************/
+router.put('/user/edit/:id', function(req, res){
     let data = {
         id: req.params.id,
         body: req.body
     };
     UserService.editEmployee(data, res, function(response){
+        res.status(response.code).json(response);    
+    })
+})
+
+router.post('/user/create', function(req, res){
+    UserService.create(req.body, res, function(response){
         res.status(response.code).json(response);    
     })
 })
