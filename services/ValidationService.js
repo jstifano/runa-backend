@@ -35,7 +35,7 @@ class ValidationService {
     }
 
     static checkRole(value){
-        if(value === 'admin' || value === 'empleado'){
+        if(value === 'admin' || value === 'employee'){
             return true;
         }
         else {
