@@ -21,7 +21,16 @@ class LoginService {
             if(users.length !== 0){
                 bcrypt.compare(req.password, users[0].dataValues.password, function(err, matchPassword){
                     if(matchPassword){
-                        callback({ code: 200, authenticate: true, user: {id: users[0].dataValues.id} }) // La contraseña enviada coincide con la del usuario, lo autentico
+                        callback({ 
+                            code: 200, 
+                            authenticate: true, 
+                            user: {
+                                id: users[0].dataValues.id, 
+                                first_name: users[0].dataValues.first_name,
+                                last_name: users[0].dataValues.last_name,
+                                role: users[0].dataValues.role
+                            } 
+                        }) // La contraseña enviada coincide con la del usuario, lo autentico
                     }
                     else {
                         callback({code: 200, authenticate: false})// No coinciden las contraseñas, no lo autentico.

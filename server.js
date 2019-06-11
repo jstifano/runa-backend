@@ -7,6 +7,7 @@ let app = express();
 let bodyParser = require('body-parser');
 let config = require('./config');
 let userRoutes = require('./routes/users');
+let cors = require('cors');
 
 /* Permitir acceso al body de la peticion */
 app.use(bodyParser.json());
@@ -16,13 +17,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.use(cors()); // Cors habilitado para el header Allow-Origin
+
 // ***** Rutas para el consumo de los servicios ***** //
 app.use(config.apiEndpoint, userRoutes);
 // ***** Rutas para el consumo de los servicios ***** //
-
-/* sequelize.authenticate().then(() => {
-    console.log("Conexión con la base de datos establecida.");
-}); */
 
 app.listen(5000, function(){
     console.log("Server running on port ::: 5000");
