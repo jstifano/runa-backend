@@ -4,17 +4,19 @@
   "description": "Proyecto para la prueba técnica de Runa",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "server": "node server.js",
     "server-live": "nodemon server.js"
   },
   "author": "Javier Stifano",
   "license": "ISC",
   "dependencies": {
+    "assert": "^2.0.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mocha": "^6.1.4",
     "nodemon": "^1.19.1",
     "pg": "^7.11.0",
     "sequelize": "^5.8.7"
