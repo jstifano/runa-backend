@@ -59,3 +59,8 @@ TABLESPACE pg_default;
 ALTER TABLE public.entry
     OWNER to postgres;
 /****** Creación de la tabla de Entradas y Salidas ********/
+
+/* lA CONTRASEÑA DEL ADMIN ES admin123*/
+/* LA CONTRASEÑA DEL EMPLEADO ES empleado123 */
+INSERT INTO public."user" (id, first_name, last_name, email, password, role) VALUES (DEFAULT, 'Admin', 'Uno', 'admin@test.com', '$2b$10$x.C3asgcgYvUjuQaI540l.TLrmbVmCIv4LBvoxz7yn1qfRtc48zfK', 'admin');
+INSERT INTO public."user" (id, first_name, last_name, email, password, role) VALUES (DEFAULT, 'Empleado', 'Uno', 'empleado@test.com', '$2b$10$ba/A9anYmOm69BUsgaKcSepJD4pmb5tKE4vVGS2CsLovT.ZolyzE.', 'employee');

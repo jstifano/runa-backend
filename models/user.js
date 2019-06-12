@@ -53,7 +53,9 @@ const User = sequelize.define('user', {
         }
     }
 }, {
-    freezeTableName: true
+    freezeTableName: true,
+    createdAt: false,
+    updatedAt: false
 })
 
 User.hasMany(Entry, {as: 'entries', foreignKey: 'id'});

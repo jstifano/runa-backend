@@ -43,8 +43,7 @@ class UserService {
     ***********************************************************************/
     static create(req, res, callback){
         if(!ValidationService.checkValidEmail(req.email) || !ValidationService.checkOnlyLettersWithBlanks(req.first_name) || 
-           !ValidationService.checkOnlyLettersWithBlanks(req.last_name) || req.password.length < 4 || req.password.length > 16 || 
-           !ValidationService.checkRole(req.role)
+           !ValidationService.checkOnlyLettersWithBlanks(req.last_name) || req.password.length < 4 || req.password.length > 16
         ){
             callback({code: 400, message: 'Parametros inválidos'});
         }
@@ -57,7 +56,7 @@ class UserService {
                     last_name: req.last_name,
                     email: req.email,
                     password: hash,
-                    role: req.role
+                    role: 'employee'
                 }
                 User.create(newUser).then(user => {
                     callback({code: 200, user: {id: user.dataValues.id }});
