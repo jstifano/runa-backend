@@ -69,7 +69,7 @@ class UserService {
     /************************************************************
     * Servicio para poder editar un empleado dentro del sistema *
     *************************************************************/
-    static editEmployee(req, res, callback){
+    static edit(req, res, callback){
         if(!req.id || isNaN(req.id)){
             callback({code: 400, message: 'Parámtros inválidos'});        
         }
@@ -89,6 +89,31 @@ class UserService {
                 else {
                     callback({code: 400, message: 'No tiene privilegios para editar el empleado'});      
                 }
+            }
+            else {
+                callback({code: 204, message: 'El usuario no existe.'});        
+            }    
+        })
+    }
+
+    /*********************************************
+    * Servicio para eliminar un usuario de la db *
+    **********************************************/
+    static delete(req, res, callback){
+        if(!req.id || isNaN(req.id)){
+            callback({code: 400, message: 'Parámetros inválidos'});        
+        }
+
+        User.findAll({where: {id: req.id}}).then(users => {
+            if(users.length !== 0){
+                User.destroy({where: {id: req.id}}).then(userDeleted => {
+                    if(userDeleted.length !== 0){
+                        callback({code: 200, deleted: true});
+                    }
+                    else {
+                        callback({code: 200, deleted: false});    
+                    }
+                })
             }
             else {
                 callback({code: 204, message: 'El usuario no existe.'});        

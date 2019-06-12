@@ -29,13 +29,19 @@ router.put('/user/edit/:id', function(req, res){
         id: req.params.id,
         body: req.body
     };
-    UserService.editEmployee(data, res, function(response){
+    UserService.edit(data, res, function(response){
         res.status(response.code).json(response);    
     })
 })
 
 router.post('/user/create', function(req, res){
     UserService.create(req.body, res, function(response){
+        res.status(response.code).json(response);    
+    })
+})
+
+router.delete('/user/delete/:id', function(req, res){
+    UserService.delete(req.params, res, function(response){
         res.status(response.code).json(response);    
     })
 })
