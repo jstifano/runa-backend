@@ -7,6 +7,7 @@ let app = express();
 let bodyParser = require('body-parser');
 let config = require('./config');
 let userRoutes = require('./routes/users');
+let entryRoutes = require('./routes/entries');
 let cors = require('cors');
 
 /* Permitir acceso al body de la peticion */
@@ -21,6 +22,7 @@ app.use(cors()); // Cors habilitado para el header Allow-Origin
 
 // ***** Rutas para el consumo de los servicios ***** //
 app.use(config.apiEndpoint, userRoutes);
+app.use(config.apiEndpoint, entryRoutes);
 // ***** Rutas para el consumo de los servicios ***** //
 
 app.listen(5000, function(){

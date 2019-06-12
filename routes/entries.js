@@ -11,8 +11,13 @@ router.post('/entry', function(req, res){
     })   
 })
 
+/*******************************************************************
+* Controlador para consultar las entradas y salidas de un empleado *
+********************************************************************/
 router.get('/entries/:id', function(req, res){
     EntryService.getEntries(req.params, res, function(response){
         return res.status(response.code).json(response);
     })
 })
+
+module.exports = router;

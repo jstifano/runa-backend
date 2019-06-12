@@ -22,7 +22,8 @@ CREATE TABLE public."user"
     password character varying(1000) COLLATE pg_catalog."default" NOT NULL,
     role character varying(20) COLLATE pg_catalog."default" NOT NULL,
     "createdAt" timestamp(6) with time zone,
-    "updatedAt" timestamp(6) with time zone
+    "updatedAt" timestamp(6) with time zone,
+    CONSTRAINT unique_id UNIQUE (id)
 )
 WITH (
     OIDS = FALSE
@@ -38,13 +39,17 @@ COMMENT ON TABLE public."user"
 /****** Creación de la tabla de Entradas y Salidas ********/
 CREATE TABLE public.entry
 (
-    id integer NOT NULL,
-    arrival_date timestamp(6) without time zone NOT NULL,
-    departure_date timestamp(6) without time zone NOT NULL,
+    id integer NOT NULL DEFAULT nextval('entry_id_seq'::regclass),
+    arrival_date character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    departure_date character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    id_user integer NOT NULL,
     "createdAt" timestamp(6) without time zone NOT NULL,
     "updatedAt" timestamp(6) without time zone,
-    id_user integer NOT NULL,
-    CONSTRAINT entry_pkey PRIMARY KEY (id)
+    CONSTRAINT entry_pkey PRIMARY KEY (id),
+    CONSTRAINT entry_id_user_fkey FOREIGN KEY (id_user)
+        REFERENCES public."user" (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 )
 WITH (
     OIDS = FALSE

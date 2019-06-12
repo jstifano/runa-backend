@@ -10,28 +10,20 @@ class EntryService {
     * Metodo para crear la entrada y salida del empleado *
     ******************************************************/
     static createEntry(req, res, callback){
-        if(!req.arrivalDate || !req.departureDate || !req.id_user || isNaN(id_user)){
+        if(!req.arrivalDate || !req.departureDate || !req.id_user || isNaN(req.id_user)){
             callback({code: 400, message: 'Parámetros inválidos'});
         }
         
-        User.findAll({ where: {id: id_user} }).then(users => {
+        User.findAll({ where: {id: req.id_user} }).then(users => {
             if(users.length !== 0){
-                if(users[0].dataValues.role === 'empleado'){
+                if(users[0].dataValues.role === 'employee'){
                     let newEntry = {
-                        arrivalDate: req.arrivalDate,
-                        departureDate: req.departureDate,
-                        id_user: req.id_user,
-                        createdAt: new Date(),
-                        updatedAt: null
-                    }    
-                    sequelize.transaction().then(function(t){
-                        Entry.create(newEntry, {transaction: t}).then(function(){
-                            t.commit(); // Hago commit de la transacción de creación
-                            callback({code: 200, entry: newEntry});
-                        }).catch(function(error){
-                            t.rollback(); // Si falla la transacción de creación, hago rollback
-                            callback({code: 400, message: 'No se pudo registrar la entrada y salida del empleado'});
-                        })
+                        arrival_date: req.arrivalDate,
+                        departure_date: req.departureDate,
+                        id_user: req.id_user
+                    }   
+                    Entry.create(newEntry).then(entry => {
+                        callback({code: 200, entry: newEntry});
                     })
                 }
                 else {
@@ -52,9 +44,9 @@ class EntryService {
             callback({code: 400, message: 'Parámetros inválidos'});    
         }
 
-        Entry.findAll({where: {id_user: req.id}}).then(response => {
+        Entry.findAll({where: {id_user: req.id}}).then(entries => {
             if(entries.length !== 0){
-                callback({code: 200, entries: response});      
+                callback({code: 200, entries: entries});      
             }
             else {
                 callback({code: 200, entries: []});    
@@ -63,4 +55,4 @@ class EntryService {
     }
 }
 
-module.exports = UserService;
+module.exports = EntryService;
