@@ -16,14 +16,13 @@ COMMENT ON DATABASE runadb
 CREATE TABLE public."user"
 (
     id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
-    email character varying(200) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(30) COLLATE pg_catalog."default" NOT NULL,
-    role character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    first_name character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    last_name character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(1000) COLLATE pg_catalog."default" NOT NULL,
+    role character varying(20) COLLATE pg_catalog."default" NOT NULL,
     "createdAt" timestamp(6) with time zone,
-    "updatedAt" timestamp(6) with time zone,
-    "firstName" character varying(30) COLLATE pg_catalog."default" NOT NULL,
-    "lastName" character varying(30) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT user_pkey PRIMARY KEY (id)
+    "updatedAt" timestamp(6) with time zone
 )
 WITH (
     OIDS = FALSE
@@ -40,8 +39,8 @@ COMMENT ON TABLE public."user"
 CREATE TABLE public.entry
 (
     id integer NOT NULL,
-    "arrivalDate" timestamp(6) without time zone NOT NULL,
-    "departureDate" timestamp(6) without time zone NOT NULL,
+    arrival_date timestamp(6) without time zone NOT NULL,
+    departure_date timestamp(6) without time zone NOT NULL,
     "createdAt" timestamp(6) without time zone NOT NULL,
     "updatedAt" timestamp(6) without time zone,
     id_user integer NOT NULL,
