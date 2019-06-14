@@ -21,8 +21,6 @@ CREATE TABLE public."user"
     email character varying(255) COLLATE pg_catalog."default" NOT NULL,
     password character varying(1000) COLLATE pg_catalog."default" NOT NULL,
     role character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    "createdAt" timestamp(6) with time zone,
-    "updatedAt" timestamp(6) with time zone,
     CONSTRAINT unique_id UNIQUE (id)
 )
 WITH (
@@ -43,8 +41,6 @@ CREATE TABLE public.entry
     arrival_date character varying(50) COLLATE pg_catalog."default" NOT NULL,
     departure_date character varying(50) COLLATE pg_catalog."default" NOT NULL,
     id_user integer NOT NULL,
-    "createdAt" timestamp(6) without time zone NOT NULL,
-    "updatedAt" timestamp(6) without time zone,
     CONSTRAINT entry_pkey PRIMARY KEY (id),
     CONSTRAINT entry_id_user_fkey FOREIGN KEY (id_user)
         REFERENCES public."user" (id) MATCH SIMPLE
